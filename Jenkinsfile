@@ -5,6 +5,10 @@ pipeline {
         AWS_REGION = 'us-east-1'
     }
 
+    triggers {
+        githubPush()
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -12,21 +16,21 @@ pipeline {
             }
         }
 
-   stage('Install Terraform') {
-    steps {
-        sh '''
-        if ! [ -x "$(command -v terraform)" ]; then
-            echo "Installing Terraform..."
-            curl -LO https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip
-            unzip -o terraform_1.5.0_linux_amd64.zip
-            sudo mv terraform /usr/local/bin/
-        else
-            echo "Terraform is already installed."
-        fi
-        terraform --version
-        '''
-    }
-}
+        stage('Install Terraform') {
+            steps {
+                sh '''
+                if ! [ -x "$(command -v terraform)" ]; then
+                    echo "Installing Terraform..."
+                    curl -LO https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip
+                    unzip -o terraform_1.5.0_linux_amd64.zip
+                    sudo mv terraform /usr/local/bin/
+                else
+                    echo "Terraform is already installed."
+                fi
+                terraform --version
+                '''
+            }
+        }
 
         stage('Terraform Init') {
             steps {
