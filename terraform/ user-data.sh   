@@ -1,0 +1,21 @@
+# This script initializes Airflow on the EC2 instance.
+#!/bin/bash
+sudo apt update -y
+sudo apt install -y python3-pip
+pip3 install apache-airflow
+
+# Initialize Airflow database
+airflow db init
+
+# Create an admin user
+airflow users create \
+    --username admin \
+    --password admin \
+    --firstname Admin \
+    --lastname User \
+    --role Admin \
+    --email admin@example.com
+
+# Start Airflow webserver and scheduler
+nohup airflow webserver -p 8080 &
+nohup airflow scheduler &

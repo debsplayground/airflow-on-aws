@@ -1,0 +1,10 @@
+airflow-on-aws/
+├── Jenkinsfile           # Jenkins pipeline configuration
+├── terraform/            # Terraform configuration files
+│   ├── main.tf           # Main Terraform script
+│   ├── variables.tf      # Variables used in Terraform
+│   ├── outputs.tf        # Outputs for Terraform
+│   ├── user-data.sh      # EC2 bootstrap script for Airflow
+├── scripts/              # Supporting scripts for automation
+│   └── airflow_setup.sh  # Script to initialize Airflow
+└── README.md             # Project documentation
